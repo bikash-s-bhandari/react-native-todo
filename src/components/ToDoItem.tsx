@@ -19,7 +19,7 @@ const TodoItem: React.FC<ToDoItemProps> = ({
   const [isEditing, setIsEditing] = useState(false);
   const handleEdit = (newText: string) => {
     onEdit(newText);
-    setIsEditing(false)
+    setIsEditing(false);
   };
   return (
     <View style={styles.container}>
@@ -37,12 +37,13 @@ const TodoItem: React.FC<ToDoItemProps> = ({
       ) : (
         <View style={styles.actionBtnContainer}>
           <TouchableOpacity
-            style={styles.editBtn}
+            disabled={todo?.completed}
+            style={[styles.editBtn, todo?.completed && styles.disabledBtn]}
             onPress={() => setIsEditing(true)}>
             <Text style={styles.btnText}>Edit</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.deleteBtn} onPress={onDelete}>
+          <TouchableOpacity  disabled={todo?.completed}   style={[styles.deleteBtn, todo?.completed && styles.disabledBtn]} onPress={onDelete}>
             <Text style={styles.btnText}>Delete</Text>
           </TouchableOpacity>
         </View>
@@ -90,6 +91,10 @@ const styles = StyleSheet.create({
   btnText: {
     color: '#ffffff',
     fontSize: 15,
+  },
+
+  disabledBtn: {
+    backgroundColor: '#888888',
   },
 });
 
